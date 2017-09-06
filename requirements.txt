@@ -1,0 +1,3 @@
+discord.py==0.16.8
+imgurpython==1.1.7
+psycopg2==2.7.3.1
