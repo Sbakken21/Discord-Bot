@@ -5,4 +5,3 @@ jojobot.cfg
 .idea
 *.pyc
 runtime.txt
-Procfile
