@@ -1,8 +1,9 @@
 dir_to_ignore/.idea
+__pycache__/
 notes.txt
 jojobot.cfg
 .idea
-.pyc
+*.pyc
 dev.py
 prod.py
 runtime.txt
