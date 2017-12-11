@@ -1,26 +1,19 @@
 import discord
 from discord.ext import commands
 import asyncio
-import configparser
 import re
 import random
 from imgurpython import ImgurClient
+import config
 import pgDB
 
-config = configparser.ConfigParser()
-config.read('jojobot.cfg')
+# Imgur API
 
-# Imgur API 
-client_id = config.get("imgur", "id")
-client_secret = config.get("imgur", "secret")
-
-client = ImgurClient(client_id, client_secret)
+client = ImgurClient(config.client_id, config.client_secret)
 
 
 bot = commands.Bot(command_prefix='/', description='JojoBot')
-
 status_updates = ['/help', 'with the Joestars', 'anything but PoE']
-
 # React with Dio emoji
 emoji_react = ['339924033443332096']
 
@@ -41,15 +34,16 @@ async def on_message(message):
         return
 
     # Create list of banned words
-    blacklist_word = config.get("filter", "joke_word").split(',')
+    blacklist_word = config.blacklist_word.split(',')
 
     # Parse message content for match to blacklist word
     for word in blacklist_word:
-        if re.search(word, message.content.replace (" ", ""), re.IGNORECASE):
-            await bot.send_message(message.channel, '⚠ ' + message.author.mention + ' ' + config.get("filter", "response"))
+        if re.search(word, message.content.replace(" ", ""), re.IGNORECASE):
+            await bot.send_message(message.channel, '⚠ ' + message.author.mention + ' ' + config.response)
 
     # Check for words that bot will react with using emoji
-    react_words = config.get("filter", "react_words").split(',')
+    react_words = config.react_words.split(',')
+
     for word in react_words:
         if re.search(word.strip(), message.content, re.IGNORECASE):
             await bot.add_reaction(message, 'Dio:339924155921203201')
@@ -60,23 +54,23 @@ async def on_message(message):
 @bot.command()
 async def dio_pasta():
     """Dio CopyPasta"""
-    await bot.say(config.get("command", "dio_pasta"))
+    await bot.say(config.dio_pasta)
 
 
-@bot.command(description=config.get("command", "dio_desc"))
+@bot.command(description=config.dio_desc)
 async def dio():
     """Dio Picture"""
-    await bot.say(config.get("command", "dio_img"))
+    await bot.say(config.dio_desc)
 
 @bot.command()
 async def pizza():
     """Pizza Picture"""
-    await bot.say(config.get("command", "dio_pizza"))
+    await bot.say(config.dio_pizza)
 
 @bot.command()
 async def meme():
     """Random JoJo(usually) meme"""
-    albums = config.get("imgur", "albums").split(',')
+    albums = config.albums.split(',')
 
     # Compile list of all albums
     items = sum([client.get_album_images(album.strip()) for album in albums], [])
@@ -91,6 +85,7 @@ async def meme():
 
 @bot.command()
 async def add(int_name : str):
+    """Add name to dodge list"""
     pgDB.add_name(int_name)
     await bot.say('Added "%s" to the LoL dodge list' % (int_name))
 
@@ -122,4 +117,4 @@ async def yes():
     await bot.say ('Vote Total')
 
 # start the bot
-bot.run(config.get("discord", "token"))
+bot.run(config.token)

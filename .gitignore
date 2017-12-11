@@ -1,0 +1,9 @@
+dir_to_ignore/.idea
+notes.txt
+jojobot.cfg
+.idea
+.pyc
+dev.py
+prod.py
+runtime.txt
+Procfile

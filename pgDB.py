@@ -1,24 +1,20 @@
 import psycopg2
-import configparser
-
-#load the configuration
-config = configparser.ConfigParser()
-config.read('jojobot.cfg')
+import config
 
 """
-    CONNECTION TO POSTGRESQL DATABASE
+CONNECTION TO POSTGRESQL DATABASE
 """
 
 # PostgreSQL DB connection
 conn = psycopg2.connect(
-    database = config.get("database", "database"),
-    user = config.get("database", "user"),
-    password = config.get("database", "password"),
-    host = config.get("database", "host"),
-    port = config.get("database", "port")
+    database = config.database,
+    user = config.user,
+    password = config.password,
+    host = config.host,
+    port = config.port
 )
 
-print("Connecting to database %s" % (conn))
+print("Connecting to database...")
 
 cur = conn.cursor()
 print("Connected to DB")
@@ -30,7 +26,7 @@ print("Connected to DB")
 # cur.execute("CREATE TABLE reminder (user text, message text, time);")
 
 """
-    COMMANDS FOR DODGE LIST DB
+COMMANDS FOR DODGE LIST DB
 """
 
 def add_name(summoner):
@@ -53,4 +49,3 @@ def remove_name(del_name):
     data = (lower,)
     cur.execute(sql, data)
     conn.commit()
-
