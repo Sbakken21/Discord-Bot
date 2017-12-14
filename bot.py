@@ -31,7 +31,7 @@ async def on_ready():
 async def on_message(message):
     # stop bot from replying to itself
     if message.author == bot.user:
-        return
+        return None
 
     # Create list of banned words
     blacklist_word = config.blacklist_word.split(',')
@@ -39,6 +39,7 @@ async def on_message(message):
     # Parse message content for match to blacklist word
     for word in blacklist_word:
         if re.search(word, message.content.replace(" ", ""), re.IGNORECASE):
+            await bot.delete_message(message)
             await bot.send_message(message.channel, '⚠ ' + message.author.mention + ' ' + config.response)
 
     # Check for words that bot will react with using emoji
