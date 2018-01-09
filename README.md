@@ -24,7 +24,7 @@ After setting all variables save `jojobot.example.cfg` as `jojobot.cfg`
 
 ### Deploy
 This bot is currently deployed using Heroku. The variables for local development are accessed using `dev.py` with `jojobot.cfg`. The file that manages the production variables is `prod.py`, these variables are designed to be used with a virtual environment.
-####How to deploy to Heroku
+#### How to deploy to Heroku
 * Create `runtime.txt`:
 ```
 python-3.6.1
