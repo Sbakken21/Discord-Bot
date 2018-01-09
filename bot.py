@@ -8,7 +8,6 @@ import config
 import pgDB
 
 # Imgur API
-
 client = ImgurClient(config.client_id, config.client_secret)
 
 
@@ -31,7 +30,7 @@ async def on_ready():
 async def on_message(message):
     # stop bot from replying to itself
     if message.author == bot.user:
-        return None
+        return
 
     # Create list of banned words
     blacklist_word = config.blacklist_word.split(',')
