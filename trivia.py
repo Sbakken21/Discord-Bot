@@ -73,6 +73,7 @@ class Trivia():
 
         # Check if answer corresponds to answer choice
         user_answer = self.num_choices[answer-1]
+        user_answer = self.replace_chars(user_answer)
         # Remove answer choice (3. ) from the comparison
         if user_answer[3:] == self.correct_answer:
             await self.bot.say('CORRECT')
