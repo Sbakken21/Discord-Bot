@@ -20,10 +20,7 @@ cur = conn.cursor()
 print("Connected to DB")
 
 # Create a new table with a single column called "name"
-# cur.execute("CREATE TABLE dodge (name text);")
-
-# Create a new table for reminders
-# cur.execute("CREATE TABLE reminder (user text, message text, time);")
+cur.execute("CREATE TABLE IF NOT EXISTS dodge (name text);")
 
 """
 COMMANDS FOR DODGE LIST DB
@@ -33,7 +30,7 @@ def add_name(summoner):
     query = "INSERT INTO dodge (name) VALUES (%s);"
     data = (summoner,)
     cur.execute(query, data)
-    # cur.execute("INSERT INTO test (name) VALUE ('testing')")
+
     conn.commit()
 
 def view_list():

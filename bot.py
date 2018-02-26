@@ -10,8 +10,11 @@ import pgDB
 # Imgur API
 client = ImgurClient(config.client_id, config.client_secret)
 
-
 bot = commands.Bot(command_prefix='/', description='JojoBot')
+
+# Cogs/extensions
+startup_extensions = ["trivia"]
+
 status_updates = ['/help', 'with the Joestars', 'anything but PoE']
 # React with Dio emoji
 emoji_react = ['339924033443332096']
@@ -26,6 +29,7 @@ async def on_ready():
         status_updates.append(status) # makes the list continue
         await bot.change_presence(game=discord.Game(name=status, type=0))
         await asyncio.sleep(60)
+
 @bot.event
 async def on_message(message):
     # stop bot from replying to itself
@@ -105,16 +109,12 @@ async def remove(int_name : str):
     await bot.say('Removing "%s" from the LoL dodge list' % (int_name))
     pgDB.remove_name(int_name)
 
-# Commands for Hall of Shame List
-@bot.command()
-async def hos(champ : str):
-    """TBA"""
-    await bot.say('Vote for if "%s" should be added to the Hall of Shame' % (champ))
-
-@bot.command()
-async def yes():
-    """TBA"""
-    await bot.say ('Vote Total')
-
 # start the bot
-bot.run(config.token)
+if __name__ == "__main__":
+    for extension in startup_extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            print('Failed to load extension {}\n{}'.format(extension, exc))
+    bot.run(config.token)
