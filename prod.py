@@ -9,6 +9,10 @@ blacklist_word = os.environ.get('blacklist_word')
 react_words = os.environ.get('react_words')
 response = os.environ.get('response')
 
+#ban list words
+ban_list = os.environ.get('ban_list')
+response_ban = os.environ.get('response_ban')
+
 # Dio commands
 dio_pasta = os.environ.get("dio_pasta")
 dio_desc = os.environ.get("dio_desc")
