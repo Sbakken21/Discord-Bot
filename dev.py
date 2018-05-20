@@ -13,7 +13,7 @@ react_words = config.get("filter", "react_words")
 response = config.get("filter", "response")
 
 #ban list words
-ban_list = config.get("ban", "ban_words")
+ban_words = config.get("ban", "ban_words")
 response_ban = config.get("ban", "response_ban")
 
 # Dio commands

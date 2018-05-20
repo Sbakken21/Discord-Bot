@@ -53,7 +53,7 @@ async def on_message(message):
             await bot.add_reaction(message, 'Dio:339924155921203201')
 
     # Check for bannable words
-    ban_words = config.ban_list.split(',')
+    ban_words = config.ban_words.split(',')
 
     for word in ban_words:
         if word.strip().lower() in message.content.lower():

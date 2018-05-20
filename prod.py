@@ -10,7 +10,7 @@ react_words = os.environ.get('react_words')
 response = os.environ.get('response')
 
 #ban list words
-ban_list = os.environ.get('ban_list')
+ban_words = os.environ.get('ban_words')
 response_ban = os.environ.get('response_ban')
 
 # Dio commands
