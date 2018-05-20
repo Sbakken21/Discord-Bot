@@ -12,6 +12,10 @@ blacklist_word = config.get("filter", "joke_word")
 react_words = config.get("filter", "react_words")
 response = config.get("filter", "response")
 
+#ban list words
+ban_list = config.get("ban", "ban_words")
+response_ban = config.get("ban", "response_ban")
+
 # Dio commands
 dio_pasta = config.get("command", "dio_pasta")
 dio_desc = config.get("command", "dio_desc")
