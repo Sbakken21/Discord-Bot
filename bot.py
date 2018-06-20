@@ -52,17 +52,6 @@ async def on_message(message):
         if re.search(word.strip(), message.content, re.IGNORECASE):
             await bot.add_reaction(message, 'Dio:339924155921203201')
 
-    # Check for bannable words
-    ban_words = config.ban_words.split(',')
-
-    for word in ban_words:
-        if word.strip().lower() in message.content.lower():
-            await bot.delete_message(message)
-            if message.author == 162432523366957057:
-                await bot.send_message(message.channel, '⚠ ' + message.author.mention + ' ' + config.response_ban)
-            else:
-                await bot.send_message(message.channel, '⚠ ' + message.author.mention + " you're not Dante, don't try to be")
-
     # Allow bot commands to function
     await bot.process_commands(message)
 
